@@ -1,0 +1,4 @@
+enum IdType {
+  id,
+  passport,
+}

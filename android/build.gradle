@@ -1,0 +1,42 @@
+group 'com.incode.onboarding_flutter_wrapper'
+version '1.0'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 33
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        minSdkVersion 21
+    }
+    dependencies{
+        implementation 'androidx.annotation:annotation:1.1.0'
+        implementation 'com.incode.sdk:welcome:5.26.0'
+        implementation 'com.incode.sdk:core-light:2.6.3'
+        //implementation 'com.incode.sdk:conference:1.5.2' // Optional dependency
+    }
+
+
+}

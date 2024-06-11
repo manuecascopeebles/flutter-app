@@ -1,0 +1,4 @@
+enum IdCategory {
+  primary,
+  secondary,
+}
