@@ -3,11 +3,14 @@ on:
     branches:
       - main
       - master
+      - cicd
   push:
     branches:
       - main
       - master
       - develop
+      - cicd
+
 name: "Build & Release"
 jobs:
   build:
@@ -18,24 +21,31 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '2.2.0'
-      - run: flutter pub get
-      - run: flutter test
-      - run: flutter build apk --debug --split-per-abi
+          flutter-version: '3.x'
+          # flutter-version-file: 'IncdOnboardingFlutter/pubspec.yaml'
+      - run: flutter --version
       - run: |
-          flutter build ios --no-codesign
-          cd build/ios/iphoneos
-          mkdir Payload
-          cd Payload
-          ln -s ../Runner.app
-          cd ..
-          zip -r app.ipa Payload
+          # cd bineo-mobile
+          touch .env
+          echo ${{ secrets.ENV_DATA_FILE }} >> .env
+          flutter pub get
+          flutter build apk --debug --split-per-abi
+      # - run: |
+      #     cd IncdOnboardingFlutter
+      #     flutter build ios --no-codesign
+      #     cd build/ios/iphoneos
+      #     mkdir Payload
+      #     cd Payload
+      #     ln -s ../Runner.app
+      #     cd ..
+      #     zip -r app.ipa Payload
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
+          # artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
+          artifacts: "build/app/outputs/apk/debug/*"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
 
