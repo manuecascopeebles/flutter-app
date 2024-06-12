@@ -27,7 +27,6 @@ jobs:
           # flutter-version-file: 'IncdOnboardingFlutter/pubspec.yaml'
       - run: flutter --version
       - run: |
-          # cd bineo-mobile
           touch .env
           echo ${{ secrets.ENV_DATA_FILE }} >> .env
           flutter pub get
